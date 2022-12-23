@@ -7,7 +7,7 @@ General Plan of Action:
 1. Choosing the right dataset (probably S2 data)
 2. Choosing the region: here is a image of the region I have in my mind. I think we should start with a rectangle spanning from Naila to Eisenach.
 
-| ![](./Images/map1.png) | ![](./Images/map2.png)+ |
+ ![](./Images/map1.png) ![](./Images/map2.png)+ 
 
 
 So, i think the ares we should look at are (odered by a somehow arbitrary hierarchy):
