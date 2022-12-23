@@ -41,9 +41,6 @@ We agreed that the NDVI will be our primary source for deriving the state of for
 | --- | --- | --- | --- |
 | **use case** | state of trees, condition of trees | general enviromental condtions, measure for draught stress on trees | another way to look at the effective drought stress on the trees |
 | **notes** |
- |
- |
- |
 
 **Meeting 23.12.22 12:00**
 
