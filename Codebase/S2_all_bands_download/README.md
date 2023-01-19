@@ -13,3 +13,5 @@ The next part of the script defines a function get_all_bands_request(time_interv
 The script then creates a list of requests, one for each month between the start and end date specified earlier using a list comprehension. Each request is a call to the function get_all_bands_request(time_interval) with a specific time_interval.
 
 Finally, it uses a for loop to iterate over the list of requests, download the image data for each request, and saving it to the specified data folder.
+The files can be found at the SC-Cluster: 
+'/work/users/jn906hluu/S2_Frankenwald/'
