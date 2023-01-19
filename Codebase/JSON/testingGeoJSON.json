@@ -1,0 +1,24 @@
+{"type": "FeatureCollection",
+"features": [
+  {
+    "type": "Feature",
+    "geometry": {
+      "type": "MultiPolygon",
+      "coordinates": [
+        [
+            [
+                [102.0, 2.0],
+                [103.0, 2.0],
+                [103.0, 3.0],
+                [102.0, 3.0],
+                [102.0, 2.0]
+            ]
+        ]
+      ]
+    },
+    "properties": {
+      "wg_bu": 53,
+      "bez_bu_wg": "Thüringer Gebirge"
+    },
+    "id": "wg_2020.160"
+  }]}
