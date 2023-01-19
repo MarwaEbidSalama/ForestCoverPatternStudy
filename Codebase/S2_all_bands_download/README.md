@@ -14,4 +14,4 @@ The script then creates a list of requests, one for each month between the start
 
 Finally, it uses a for loop to iterate over the list of requests, download the image data for each request, and saving it to the specified data folder.
 The files can be found at the SC-Cluster: 
-'/work/users/jn906hluu/S2_Frankenwald/'
+'''/work/users/jn906hluu/S2_Frankenwald/'''
