@@ -20,6 +20,7 @@ from sentinelhub import SHConfig
 import pandas as pd
 import datetime
 import time
+from tqdm import tqdm
 
 config = SHConfig()
 
@@ -37,6 +38,21 @@ from sentinelhub import (
     SentinelHubRequest,
     bbox_to_dimensions,
 )
+
+evalscript_clm = """
+//VERSION=3
+function setup() {
+  return {
+    input: ["CLM"],
+    output: { bands: 1 }
+  }
+}
+
+function evaluatePixel(sample) {
+  return [sample.CLM];
+}
+"""
+
 
 evalscript_all_bands = """
     //VERSION=3
@@ -81,14 +97,14 @@ frankenwald_size = bbox_to_dimensions(frankenwald_bbox, resolution=resolution)
 start = datetime.datetime(2017, 1, 1)
 end = datetime.datetime(2022, 12, 31)
 
-list_of_requests = pd.date_range(start, end, freq= '1M').values
+list_of_requests = pd.date_range(start, end, freq= '1W').values
 
 print(f"Image shape at {resolution} m resolution: {frankenwald_size} pixels")
 
 def get_all_bands_request(time_interval):
     return SentinelHubRequest(
-        data_folder="/work/users/jn906hluu/S2_Frankenwald/",
-        evalscript=evalscript_all_bands,
+        data_folder="/work/users/jn906hluu/S2_Frankenwald_daily_CM/",
+        evalscript=evalscript_clm,
         input_data=[
             SentinelHubRequest.input_data(
                 data_collection=DataCollection.SENTINEL2_L1C,
@@ -102,11 +118,11 @@ def get_all_bands_request(time_interval):
         config=config,
     )
 
-for i in range(len(list_of_requests)-1):
+for i in tqdm(range(len(list_of_requests)-1)):
 
     t_start, t_stop = str(list_of_requests[i])[:10], str(list_of_requests[i+1])[:10]
     time_interval = (t_start, t_stop)
     print(time_interval)
     _ = get_all_bands_request(time_interval).get_data(save_data=True)
-    time.sleep(15)
+    time.sleep(5)
     print(f'downloaded image {i} of {len(list_of_requests)}')

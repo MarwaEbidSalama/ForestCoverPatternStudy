@@ -1,17 +1,11 @@
-This script is written in Python and uses the Sentinel Hub API to acquire and process satellite imagery. The script is composed of several parts, each of which performs a specific function to achieve the overall goal of acquiring and processing satellite imagery.
+The directory contains the following files:
 
-The first part of the script imports the necessary libraries and sets the necessary configurations. The libraries used in this script are:
+- `README.md`: This file contains information about the other files in the directory, including a brief explanation of their purpose.
 
--sentinelhub: a library that provides an easy-to-use interface for interacting with Sentinel Hub services.
--pandas: a library that provides data structures and data analysis tools.
--numpy: a library that provides functions for mathematical and array operations.
+- `s2_download.py`: This is a Python script that downloads Sentinel-2 satellite imagery from the European Space Agency's Copernicus Open Access Hub by using the SentinelHub library. The script first sets up an SHConfig object and checks for the presence of the OAuth client ID and secret. It then imports various modules from the SentinelHub library and defines two evalscripts, one for the Cloud Mask (CLM) band and one for all bands. The script also defines a bounding box and resolution for the Frankenwald/Türingerwald  region in Germany from the `/Layers/D48.shp` shapefile. It creates a list of time intervals with a frequency of one week, between start date of 2017 and end date of 2022. The script then iterates over the list of time intervals, creates a SentinelHubRequest object for each interval and the requests are sent to the Copernicus Open Access Hub to download the images. The downloaded images are saved in the specified data folder.
 
-The script starts by creating an instance of the SHConfig class, which is used to set the configuration settings for Sentinel Hub services. Then, it checks if the necessary credentials (OAuth client ID and client secret) are present, and if not, it prints a warning message for more information check out the sentinelhub documentation ('https://sentinelhub-py.readthedocs.io/en/latest/configure.html').
+- `rename.py`: This script is used to rename the folders containing the images downloaded using the `s2_download.py` script. The script starts by changing the current working directory to the folder where the images are stored.
+It defines a function `get_request_dt(request_file)` that takes in a request file and reads the time from the json file.
+The script then uses the glob library to get a list of all the subfolders in the current working directory. It iterates over the list of folders and for each folder it calls the get_request_dt function to extract the time from the `request.json` file. It then uses the datetime module to convert the time string to a datetime object and formats it to the desired format. The script then renames the folder to this formatted date. If the folder does not contain a request.json file, it will skip it and print 'no request.json'. The files can be found at the SC-Cluster: '''/work/users/jn906hluu/S2_Frankenwald/'''.
 
-The next part of the script defines a function get_all_bands_request(time_interval) that takes a time_interval as input and returns a SentinelHubRequest object with the specified parameters for image acquisition. This object contains all the necessary information to download an image from the Sentinel Hub, such as the bounding box, resolution, data collection, evalscript, output format and time_interval.
-
-The script then creates a list of requests, one for each month between the start and end date specified earlier using a list comprehension. Each request is a call to the function get_all_bands_request(time_interval) with a specific time_interval.
-
-Finally, it uses a for loop to iterate over the list of requests, download the image data for each request, and saving it to the specified data folder.
-The files can be found at the SC-Cluster: 
-'''/work/users/jn906hluu/S2_Frankenwald/'''
+- `s2_download.ipynb`: This is a Jupyter notebook that contains the same functionality as the `s2_download.py` script, but with additional explanations and visualizations.
