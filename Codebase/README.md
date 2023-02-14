@@ -3,7 +3,7 @@ Alsohave a look at the updated quicklook version of `S2_Frankenwald_HD_Showcase.
 some first results. I took the freedom to display them here in the README. For as selected
 region (my hometown, more or less) a significant raise in Bare Soil Index (BSI) and a decline of NDVI
 can be seen. 
-![](./Images/NDVI_BSI_ts.png)+
+![](./Images/NDVI_BSI_ts.png)
 
 
 (1) To create enviroment for Forest_Vs_BareSoil notebook.
