@@ -50,4 +50,18 @@ We agreed that the NDVI will be our primary source for deriving the state of for
 
 -Josh will automate a routine to get Sentinel-2 Level 2 data to extract RGB/ different bands (and maybe have expanded timeseries).
 
--
+18th Feb
+Josh had finshed: 
+(1) mosics
+(2) tiff to zarr
+(3) final dataset
+(4) Ability to calcute ndvi and baren soil indix
+
+What to focus on:
+(1) other indices? (search) https://custom-scripts.sentinel-hub.com/custom-scripts/sentinel-2/indexdb/
+(2) read github code
+(3) land cover heatmap (marwa)
+(4) start writing (overleaf)
+(5) add lit
+
+Next meeting? 23rd Feb 10:30 (GMT 1:00)?
