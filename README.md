@@ -52,16 +52,16 @@ We agreed that the NDVI will be our primary source for deriving the state of for
 
 18th Feb
 Josh had finshed: 
-(1) mosics
-(2) tiff to zarr
-(3) final dataset
-(4) Ability to calcute ndvi and baren soil indix
+- mosics
+- tiff to zarr
+- final dataset
+- Ability to calcute ndvi and baren soil indix
 
 What to focus on:
-(1) other indices? (search) https://custom-scripts.sentinel-hub.com/custom-scripts/sentinel-2/indexdb/
-(2) read github code
-(3) land cover heatmap (marwa)
-(4) start writing (overleaf)
-(5) add lit
+- other indices? (search) https://custom-scripts.sentinel-hub.com/custom-scripts/sentinel-2/indexdb/
+- read github code
+- land cover heatmap (marwa)
+- start writing (overleaf)
+- add lit
 
 Next meeting? 23rd Feb 10:30 (GMT 1:00)?
