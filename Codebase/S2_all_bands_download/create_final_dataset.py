@@ -2,6 +2,7 @@ import xarray as xr
 import os
 import fsspec
 from datetime import datetime
+import numpy as np
 
 inpath = '/work/users/jn906hluu/S2_Frankenwald_zarr/'
 outpath = '/work/users/my982hzao/'
@@ -23,10 +24,10 @@ for file in list_of_dir:
         ds = xr.open_zarr(fsspec.get_mapper(file), consolidated=True)
         ds = ds.assign_coords({'time' : dt})
         ds['refl'] = ds['refl'].where(ds.mask)
-        possible_non_cloudy_pixels = 24587103
-        list_of_cloud_fraction = []
+        cloud_fraction = 1 - (np.count_nonzero(ds.mask) / possible_non_cloudy_pixels)
+        list_of_cloud_fraction.append(cloud_fraction)
+        
         #Ignoring the 13th band as this is somehow the failed cloudmask...
-
         list_of_xarray_datasets.append(ds.sel(band=slice(1,12)))
     except:
         count_failed += 1

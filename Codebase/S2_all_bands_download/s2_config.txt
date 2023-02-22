@@ -1,0 +1,3 @@
+config.instance_id = '82e57296-d373-40c0-8ffb-dcb909e1ca8b'
+config.sh_client_id = '8c254854-c6f1-4599-97c7-f6fc829d2862'
+config.sh_client_secret = 'BHFAJm}-~l?n^u/g}kR?{(-H?6h{c8D6qt8?Vx92'
