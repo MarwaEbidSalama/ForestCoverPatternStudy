@@ -13,6 +13,8 @@ print(f'Processing {len(list_of_dir)} files...')
 list_of_dir.sort()
 list_of_xarray_datasets, list_of_failures = [], []
 count_failed = 0
+possible_non_cloudy_pixels = 24587103
+list_of_cloud_fraction = []
 
 for file in list_of_dir:
     date = file.split('/')[-1].split('.')[0]
@@ -21,7 +23,8 @@ for file in list_of_dir:
         ds = xr.open_zarr(fsspec.get_mapper(file), consolidated=True)
         ds = ds.assign_coords({'time' : dt})
         ds['refl'] = ds['refl'].where(ds.mask)
-
+        possible_non_cloudy_pixels = 24587103
+        list_of_cloud_fraction = []
         #Ignoring the 13th band as this is somehow the failed cloudmask...
 
         list_of_xarray_datasets.append(ds.sel(band=slice(1,12)))
@@ -39,7 +42,12 @@ else:
     for fail_name in list_of_failures:
         print(fail_name)
 
-combined_set = xr.concat(list_of_xarray_datasets, dim='time').resample(time='1M').mean()
+combined_set = xr.concat(list_of_xarray_datasets, dim='time')
+combined_set['CF'] = (['time'], list_of_cloud_fraction)
+
+combined_set_CF_20 = combined_set.isel(time=combined_set.CF < 0.2)
+
+
 
 attrs = {
     "platform": "Sentinel-2",
@@ -56,11 +64,10 @@ attrs = {
     "author" : "Joshua Müller",
     "information" : "The raw data is generated from weekly Sentinel-2 images; The \
         images are masked with the D48 regionmask corresponding to the geographic area \
-        of the franconian and turinga forests and a cloud maks. To avoid a high number \
-        of missing values, the data is resampled to monthly resolution (corresponding to 3-4 timeslices) \
-        with skip-missing (skip-na) policy.",
+        of the franconian and turinga forests and a cloud maks. The set only uses data with a \
+        cloud fraction of less than 20%",
 }
 
-combined_set.attrs = attrs
+combined_set_CF_20.attrs = attrs
 
-combined_set.to_zarr(f'{outpath}S2_Frankenwald.zarr', mode='w')
+combined_set_CF_20.to_zarr(f'{outpath}S2_Frankenwald_CF_20.zarr', mode='w')
