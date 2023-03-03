@@ -65,3 +65,20 @@ What to focus on:
 - add lit
 
 Next meeting? 23rd Feb 10:30 (GMT 1:00)?
+
+
+Meeting notes: 03.03.2023
+
+Decided on when to end pre-processing of data (09.03.2023) ---> no more processing, formatting - everything should be readable and runnable by then.
+
+El: finish the soil moisture dataset (transform x,y to lat lon) and upload to work server, and add notebook notes to overleaf. add marwa to overleaf doc
+josh: finish temp and precip datasets, make bib file, add references
+Marwa: Maintainance starts 21.03 --> back up data and code to harddrive!!
+
+everyone: add references you used/read
+
+to do:  
+do time series, look for correlations (lags?) --> produce nice plots basically
+focus on overleaf doc
+
+goal: by 21.03 have a working and basically finished version (24.03 is the due date!)
