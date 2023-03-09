@@ -82,3 +82,11 @@ do time series, look for correlations (lags?) --> produce nice plots basically
 focus on overleaf doc
 
 goal: by 21.03 have a working and basically finished version (24.03 is the due date!)
+
+
+09.03 Meeting:
+
+urgently need to create structure for the paper. this involves:
+- clean up the paper so far: josh - mostly introduction, motivation, and objectives. el: mostly theoretical framework 
+- settle objectives such that we can refer to them for our analysis
+- 
