@@ -87,6 +87,17 @@ goal: by 21.03 have a working and basically finished version (24.03 is the due d
 09.03 Meeting:
 
 urgently need to create structure for the paper. this involves:
-- clean up the paper so far: josh - mostly introduction, motivation, and objectives. el: mostly theoretical framework 
 - settle objectives such that we can refer to them for our analysis
-- 
+- clean up the paper so far: josh - mostly introduction, motivation, and objectives. add to processing sentinel data el: mostly theoretical framework, and processing dwd data section 
+- use bibliography --> secondary references in i.e. thonfeld paper, potentially bark beetle paper
+- make the index a nice full page table with description and references
+- add/remove/restructure sections and subsections
+
+look at bark beetle paper indices and compare to josh's computed indices to see if some can idicate BB infestation
+
+clean up operation:
+theoretical framework: add a few sentences about sentinel-2 (that its a satellite and flies), what kind of product we used (L2?) , cite ESA?
+
+ultimately remove most subsections in content page; leave for now for better overview of structure
+
+
