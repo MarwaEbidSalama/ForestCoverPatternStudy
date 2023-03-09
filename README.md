@@ -100,4 +100,6 @@ theoretical framework: add a few sentences about sentinel-2 (that its a satellit
 
 ultimately remove most subsections in content page; leave for now for better overview of structure
 
+- Marwa : Sentinel-2 section, Climate Indices and Region of interest; 
+
 
