@@ -1,4 +1,4 @@
-![Sentinel 2 Processing Flowchart](/Sentinel 2.png)
+![Sentinel 2 Processing Flowchart](./Sentinel 2.png)
 
 The directory contains the following files:
 
