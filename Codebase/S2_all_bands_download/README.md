@@ -1,4 +1,4 @@
-![Sentinel 2 Processing Flowchart](./Codebase/S2_all_bands_download/Sentinel 2.png)
+![Sentinel 2 Processing Flowchart](sen2flowchart.png)
 
 The directory contains the following files:
 
