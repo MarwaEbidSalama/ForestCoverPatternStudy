@@ -1,0 +1,112 @@
+{
+ "cells": [
+  {
+   "cell_type": "code",
+   "execution_count": 1,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "import pyproj \n",
+    "from pyproj import Proj\n",
+    "import json\n",
+    "from pprint import pprint\n"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 6,
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stderr",
+     "output_type": "stream",
+     "text": [
+      "/home/sc.uni-leipzig.de/my982hzao/.conda/envs/GeoJSONConverter/lib/python3.11/site-packages/pyproj/crs/crs.py:141: FutureWarning: '+init=<authority>:<code>' syntax is deprecated. '<authority>:<code>' is the preferred initialization method. When making the change, be mindful of axis order changes: https://pyproj4.github.io/pyproj/stable/gotchas.html#axis-order-changes-in-proj-6\n",
+      "  in_crs_string = _prepare_from_proj_string(in_crs_string)\n",
+      "/tmp/ipykernel_3933392/1235709507.py:26: FutureWarning: This function is deprecated. See: https://pyproj4.github.io/pyproj/stable/gotchas.html#upgrading-to-pyproj-2-from-pyproj-1\n",
+      "  x2, y2 = pyproj.transform(UTM32N, wgs84, x_temp, y_temp)\n"
+     ]
+    },
+    {
+     "ename": "TypeError",
+     "evalue": "'float' object is not iterable",
+     "output_type": "error",
+     "traceback": [
+      "\u001b[0;31m---------------------------------------------------------------------------\u001b[0m",
+      "\u001b[0;31mTypeError\u001b[0m                                 Traceback (most recent call last)",
+      "Cell \u001b[0;32mIn[6], line 27\u001b[0m\n\u001b[1;32m     25\u001b[0m         x_temp, y_temp \u001b[39m=\u001b[39m \u001b[39mzip\u001b[39m(\u001b[39m*\u001b[39mring2);\n\u001b[1;32m     26\u001b[0m         x2, y2 \u001b[39m=\u001b[39m pyproj\u001b[39m.\u001b[39mtransform(UTM32N, wgs84, x_temp, y_temp)\n\u001b[0;32m---> 27\u001b[0m         new_coords\u001b[39m.\u001b[39mappend([\u001b[39mdict\u001b[39;49m(\u001b[39mzip\u001b[39;49m(x2, row)) \u001b[39mfor\u001b[39;49;00m row \u001b[39min\u001b[39;49;00m y2])\n\u001b[1;32m     28\u001b[0m \u001b[39m# Append transformed coordinates to output feature\u001b[39;00m\n\u001b[1;32m     29\u001b[0m feature_out[\u001b[39m'\u001b[39m\u001b[39mgeometry\u001b[39m\u001b[39m'\u001b[39m][\u001b[39m'\u001b[39m\u001b[39mcoordinates\u001b[39m\u001b[39m'\u001b[39m] \u001b[39m=\u001b[39m new_coords \n",
+      "Cell \u001b[0;32mIn[6], line 27\u001b[0m, in \u001b[0;36m<listcomp>\u001b[0;34m(.0)\u001b[0m\n\u001b[1;32m     25\u001b[0m         x_temp, y_temp \u001b[39m=\u001b[39m \u001b[39mzip\u001b[39m(\u001b[39m*\u001b[39mring2);\n\u001b[1;32m     26\u001b[0m         x2, y2 \u001b[39m=\u001b[39m pyproj\u001b[39m.\u001b[39mtransform(UTM32N, wgs84, x_temp, y_temp)\n\u001b[0;32m---> 27\u001b[0m         new_coords\u001b[39m.\u001b[39mappend([\u001b[39mdict\u001b[39m(\u001b[39mzip\u001b[39;49m(x2, row)) \u001b[39mfor\u001b[39;00m row \u001b[39min\u001b[39;00m y2])\n\u001b[1;32m     28\u001b[0m \u001b[39m# Append transformed coordinates to output feature\u001b[39;00m\n\u001b[1;32m     29\u001b[0m feature_out[\u001b[39m'\u001b[39m\u001b[39mgeometry\u001b[39m\u001b[39m'\u001b[39m][\u001b[39m'\u001b[39m\u001b[39mcoordinates\u001b[39m\u001b[39m'\u001b[39m] \u001b[39m=\u001b[39m new_coords \n",
+      "\u001b[0;31mTypeError\u001b[0m: 'float' object is not iterable"
+     ]
+    }
+   ],
+   "source": [
+    "\n",
+    "\n",
+    "# Mask layer GeoJSON\n",
+    "in_file = 'MaskLayer_53_57.json'\n",
+    "\n",
+    "# Create a Proj class instance to transform coordinates. \n",
+    "p_WGS84  = Proj(init='EPSG:4326')\n",
+    "wgs84=pyproj.CRS(\"EPSG:4326\") # LatLon with WGS84 datum used by GPS units and Google Earth \n",
+    "UTM32N=pyproj.CRS(\"EPSG:25832\") # LatLon with WGS84 datum used by GPS units and Google Earth \n",
+    "\n",
+    "# Load GeoJSON\n",
+    "with open(in_file) as src:\n",
+    "    fc_in = json.load(src)\n",
+    "\n",
+    "# Define dictionary representation of output feature collection\n",
+    "fc_out = {'features': [],\n",
+    "          'type': 'FeatureCollection'}\n",
+    "\n",
+    "# Iterate through each feature of the feature collection\n",
+    "for feature in fc_in['features']:\n",
+    "    feature_out = feature.copy()\n",
+    "    new_coords = []\n",
+    "    # Project/transform coordinate pairs of each ring\n",
+    "    # (iteration required in case geometry type is MultiPolygon, or there are holes)\n",
+    "    for ring in feature['geometry']['coordinates']:\n",
+    "        for ring2 in ring:\n",
+    "            x_temp, y_temp = zip(*ring2);\n",
+    "            x2, y2 = pyproj.transform(UTM32N, wgs84, x_temp, y_temp)\n",
+    "            new_coords.append([dict(zip(x2, row)) for row in y2])\n",
+    "    # Append transformed coordinates to output feature\n",
+    "    feature_out['geometry']['coordinates'] = new_coords \n",
+    "    # Append feature to output featureCollection\n",
+    "    fc_out['features'].append(feature_out)\n",
+    "\n",
+    "pprint(fc_out)\n",
+    "\n",
+    "with open('MaskKayer_53_57_WGS84.json', 'w') as f:\n",
+    "   json.dump(fc_out, f)"
+   ]
+  }
+ ],
+ "metadata": {
+  "kernelspec": {
+   "display_name": "GeoJSONConverter",
+   "language": "python",
+   "name": "python3"
+  },
+  "language_info": {
+   "codemirror_mode": {
+    "name": "ipython",
+    "version": 3
+   },
+   "file_extension": ".py",
+   "mimetype": "text/x-python",
+   "name": "python",
+   "nbconvert_exporter": "python",
+   "pygments_lexer": "ipython3",
+   "version": "3.11.0 | packaged by conda-forge | (main, Oct 25 2022, 06:24:40) [GCC 10.4.0]"
+  },
+  "orig_nbformat": 4,
+  "vscode": {
+   "interpreter": {
+    "hash": "17db1f8bfa1afbb1619ea07170443b3da3699874915f6fae4cdbd3d3070c2a57"
+   }
+  }
+ },
+ "nbformat": 4,
+ "nbformat_minor": 2
+}
