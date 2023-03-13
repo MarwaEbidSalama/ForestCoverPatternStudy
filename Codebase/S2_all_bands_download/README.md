@@ -1,3 +1,6 @@
+ ![Sentinel 2 Processing Flowchart](Sentinel 2.png "Sentinel 2 Processing Flowchart") 
+
+
 The directory contains the following files:
 
 - `README.md`: This file contains information about the other files in the directory, including a brief explanation of their purpose.
